@@ -9,9 +9,13 @@ export const postRequest = async (req: IncomingMessage, res: ServerResponse, GLO
     if(url && GET_USERS_REGESP.test(url)) {
         let body = '';
         req.on('data', (chunk) => {
-            body += chunk;
-            if (body.length > 1e6) req.abort()
+            body += chunk.toString();
+            // if (body.length > 1e6) req.destroy()
         })
+
+        req.on('end', () => {
+            console.log(body);
+        });
         
   
         
