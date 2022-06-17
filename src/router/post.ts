@@ -1,6 +1,21 @@
 import { IncomingMessage, ServerResponse } from "http";
+import { GET_USERS_REGESP } from "../constants";
 import { IUser } from "../model/IUser";
+import { sendResponse } from "../utils/utils";
 
-export const postRequest = async (req: IncomingMessage, res: ServerResponse, GLOBAL_DATA: IUser | []) => {
-    console.log(req, res, GLOBAL_DATA);
+export const postRequest = async (req: IncomingMessage, res: ServerResponse, GLOBAL_DATA: IUser[] | []) => {
+    const {url} = req
+
+    if(url && GET_USERS_REGESP.test(url)) {
+        let body = '';
+        req.on('data', (chunk) => {
+            body += chunk;
+            if (body.length > 1e6) req.abort()
+        })
+        
+  
+        
+    } else {
+        await sendResponse(res, 404, null, 'Resource not found. Path is not correct')
+    }
 }

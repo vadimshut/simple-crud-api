@@ -5,7 +5,7 @@ import { getRequest } from "./get";
 import { postRequest } from "./post";
 import { putRequest } from "./put";
 
-export const router = (req: IncomingMessage, res: ServerResponse, GLOBAL_DATA: IUser | []) => {
+export const router = (req: IncomingMessage, res: ServerResponse, GLOBAL_DATA: IUser[] | []) => {
     const {method } = req
     
     switch(method) {
