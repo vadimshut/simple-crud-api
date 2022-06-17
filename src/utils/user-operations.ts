@@ -15,15 +15,21 @@ const findUser = async (data: IUser[] | [], id: string) => {
 }
 
 
-const createNewUser = async () => {
+const createNewUser = async (user: IUser, GLOBAL_DATA: IUser[]) => {
     const id = uuidv4()
-    console.log(id);
-    
+    const userForAddToDb: IUser = {id, ...user}    
+    GLOBAL_DATA.push(userForAddToDb)
+    console.log(`- New user ${id} was add successfully`);
+    return userForAddToDb    
+}
+
+const updateUser = async (id: string, GLOBAL_DATA: IUser[]) => {
+
 }
 
 
 export {
     findUser,
-    createNewUser
-
+    createNewUser,
+    updateUser
 }
