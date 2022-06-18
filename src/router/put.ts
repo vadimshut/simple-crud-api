@@ -18,9 +18,7 @@ export const putRequest = async (req: IncomingMessage, res: ServerResponse, GLOB
         }
 
         let body = '';
-        req.on('data', (chunk) => {
-            body += chunk.toString();
-        })
+        req.on('data', (chunk) => body += chunk.toString() )
 
         req.on('end', async () => {
             const {verdict, user: updatedUser} = await validateBody(body)
@@ -31,8 +29,6 @@ export const putRequest = async (req: IncomingMessage, res: ServerResponse, GLOB
             }
         })
 
-
-        
     } else {
         await sendResponse(res, 404, null, INCORRECT_PATH)
     }

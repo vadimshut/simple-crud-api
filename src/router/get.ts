@@ -15,12 +15,11 @@ export const getRequest = async (req: IncomingMessage, res: ServerResponse, GLOB
     } else if(url && GET_USER_REGESP.test(url)) {
         const userId = await getNameFromPath(url) 
         const {statusCode, message, payload} = await findUser(GLOBAL_DATA, userId)
-        if(statusCode === 200) {
+        if(statusCode >= 300) {
             await sendResponse(res, statusCode, payload)
             return
         }
-        await sendResponse(res, statusCode, null, message)
-              
+        await sendResponse(res, statusCode, null, message)        
     } else {
         await sendResponse(res, 404, null, INCORRECT_PATH)
     }

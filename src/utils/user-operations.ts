@@ -32,7 +32,7 @@ const updateUser = async (oldUser: IUser, newUser: IUser, GLOBAL_DATA: IUser[]) 
     const updatedUser: IUser = {id, ...newUser}
     GLOBAL_DATA.splice(index, 1, updatedUser)
     console.log(`- User ${id} was update`);
-    
+
     return updatedUser   
 }
 
@@ -40,9 +40,7 @@ const deleteUser = async (id: string, GLOBAL_DATA: IUser[]) => {
     const index = GLOBAL_DATA.findIndex(user => user.id === id)
     GLOBAL_DATA.splice(index, 1)
     console.log(`- User ${id} was delete successfully`);
-    
 }
-
 
 export {
     findUser,

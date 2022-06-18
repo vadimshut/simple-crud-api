@@ -22,16 +22,8 @@ const instanceOfIUser = (object: IUser): boolean => {
     return true
 }
 
-
-
 export const validateBody = async (body: string) => {
     const bodyInJson: IUser = JSON.parse(body)
     let verdict = instanceOfIUser(bodyInJson)
     return {verdict, user: bodyInJson}
 }
-
-
-// id— уникальный идентификатор ( string, uuid), сгенерированный на стороне сервера
-// username— имя пользователя ( string, обязательно )
-// age— возраст пользователя ( number, обязательно )
-// hobbies— увлечения пользователя ( arrayиз stringsили пусто array, обязательно )

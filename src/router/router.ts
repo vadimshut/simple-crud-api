@@ -5,7 +5,7 @@ import { getRequest } from "./get";
 import { postRequest } from "./post";
 import { putRequest } from "./put";
 
-export const router = (req: IncomingMessage, res: ServerResponse, GLOBAL_DATA: IUser[] | []) => {
+export const router = async (req: IncomingMessage, res: ServerResponse, GLOBAL_DATA: IUser[] | []) => {
     const {method } = req
     
     switch(method) {
@@ -25,6 +25,5 @@ export const router = (req: IncomingMessage, res: ServerResponse, GLOBAL_DATA: I
             res.statusCode = 500;
             res.end({message: "Server Error. Server doesn't proccesing you request" })
             break;
-
     }
 }

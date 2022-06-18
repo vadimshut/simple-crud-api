@@ -1,5 +1,4 @@
 import { IncomingMessage, ServerResponse } from "http";
-import { url } from "inspector";
 import { GET_USER_REGESP, INCORRECT_PATH } from "../constants";
 import { IUser } from "../model/IUser";
 import { getNameFromPath } from "../utils/get-name-from-path";
