@@ -1,5 +1,5 @@
 import { IncomingMessage, ServerResponse } from "http";
-import { GET_USERS_REGESP, GET_USER_REGESP } from "../constants";
+import { GET_USERS_REGESP, GET_USER_REGESP, INCORRECT_PATH } from "../constants";
 import { IUser } from "../model/IUser";
 import { getNameFromPath } from "../utils/get-name-from-path";
 import { findUser } from "../utils/user-operations";
@@ -14,10 +14,14 @@ export const getRequest = async (req: IncomingMessage, res: ServerResponse, GLOB
         await sendResponse(res, 200, GLOBAL_DATA)
     } else if(url && GET_USER_REGESP.test(url)) {
         const userId = await getNameFromPath(url) 
-        const {statusCode, message} = await findUser(GLOBAL_DATA, userId)
+        const {statusCode, message, payload} = await findUser(GLOBAL_DATA, userId)
+        if(statusCode === 200) {
+            await sendResponse(res, statusCode, payload)
+            return
+        }
         await sendResponse(res, statusCode, null, message)
               
     } else {
-        await sendResponse(res, 404, null, 'Resource not found. Path is not correct')
+        await sendResponse(res, 404, null, INCORRECT_PATH)
     }
 }

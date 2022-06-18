@@ -1,5 +1,5 @@
 import { IncomingMessage, ServerResponse } from "http";
-import { GET_USERS_REGESP } from "../constants";
+import { BAD_REQUEST, GET_USERS_REGESP, INCORRECT_PATH } from "../constants";
 import { IUser } from "../model/IUser";
 import { createNewUser } from "../utils/user-operations";
 import { sendResponse } from "../utils/utils";
@@ -10,24 +10,15 @@ export const postRequest = async (req: IncomingMessage, res: ServerResponse, GLO
 
     if(url && GET_USERS_REGESP.test(url)) {
         let body = '';
-        req.on('data', (chunk) => {
-            body += chunk.toString();
-        // if (body.length > 1e6) req.destroy()
-        })
+        req.on('data', (chunk) => body += chunk.toString())
 
         req.on('end', async () => {
             const {verdict, user} = await validateBody(body)
-            if (!verdict) await sendResponse(res, 404, null, 'Request body is not correct')
+            if (!verdict) await sendResponse(res, 404, null, BAD_REQUEST)
             const newUser = await createNewUser(user, GLOBAL_DATA)
-            sendResponse(res, 200, newUser)
-        
-        });
-
-                
-        
-  
-        
+            sendResponse(res, 200, newUser)        
+        })
     } else {
-        await sendResponse(res, 404, null, 'Resource not found. Path is not correct')
+        await sendResponse(res, 404, null, INCORRECT_PATH)
     }
 }
