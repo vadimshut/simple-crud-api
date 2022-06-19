@@ -4,7 +4,7 @@ import { IUser } from '../model/IUser';
 
 const findUser = async (data: IUser[] | [], id: string, method?: string) => {
   const isValidated = validate(id);
-  let statusCode = method === 'DELETE' ? 204 : 200;
+  const statusCode = method === 'DELETE' ? 204 : 200;
 
   if (!isValidated) {
     return { statusCode: 400, message: MESSAGE_IS_NOT_UUID };

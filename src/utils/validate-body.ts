@@ -5,7 +5,7 @@ const instanceOfIUser = async (object: IUser) => {
   const objectKeys = Object.keys(object);
   if (objectKeys.length !== userKeys.length) return false;
 
-  for (let key of objectKeys) {
+  for (const key of objectKeys) {
     if (!userKeys.includes(key)) return false;
   }
 
@@ -15,7 +15,7 @@ const instanceOfIUser = async (object: IUser) => {
   if (hobbies.length === 0) {
     return true;
   } else {
-    for (let key of hobbies) {
+    for (const key of hobbies) {
       if (typeof key !== 'string') return false;
     }
   }
@@ -30,6 +30,6 @@ export const validateBody = async (body: string) => {
     return { verdict: false, user: null };
   }
 
-  let verdict = await instanceOfIUser(bodyInJson);
+  const verdict = await instanceOfIUser(bodyInJson);
   return { verdict, user: bodyInJson };
 };

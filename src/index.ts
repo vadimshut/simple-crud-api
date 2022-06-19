@@ -6,7 +6,7 @@ import { server } from './server';
 config();
 
 const PORT = Number(process.env['SERVER_PORT']) || ALTERNATIVE_PORT;
-let GLOBAL_DATA: IUser[] = [];
+const GLOBAL_DATA: IUser[] = [];
 
 server(GLOBAL_DATA).listen(PORT, 'localhost', () => {
   console.log(`App has been started on port ${PORT}...`);

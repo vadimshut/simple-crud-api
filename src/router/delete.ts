@@ -17,6 +17,7 @@ export const deleteRequest = async (req: IncomingMessage, res: ServerResponse, G
     }
     if (foundUser?.id) {
       await deleteUser(foundUser.id, GLOBAL_DATA);
+      if (process?.send) process.send({ message: 'updatedStore', payload: GLOBAL_DATA });
       sendResponse(res, statusCode, null, message);
     }
   } else {

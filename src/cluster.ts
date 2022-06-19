@@ -1,4 +1,4 @@
-import cluster, { Worker } from 'cluster';
+import cluster from 'cluster';
 import { cpus } from 'os';
 import { pid } from 'process';
 import { ALTERNATIVE_PORT } from './constants';
@@ -36,27 +36,17 @@ void (async () => {
           }
         }
       })
-      .on('exit', (worker, _msg) => {
+      .on('exit', (worker) => {
         console.log(`Worker died! ${worker.process.pid}`);
         cluster.fork();
         cluster.fork().send({ message: 'data', payload: JSON.stringify(GLOBAL_DATA) });
       });
-
-   
   }
 
   if (cluster.isWorker) {
     const id = cluster.worker?.id;
-    let database: IUser[] = [];
+    const database: IUser[] = [];
     console.log(`Worker: ${id}, pid: ${pid}`);
-
-    process.on('message', (msg: { message: string; payload: string }) => {
-      const { message, payload } = msg;
-      if (message === 'data') {
-        database = JSON.parse(payload);
-        console.log('database2', database);
-      }
-    });
 
     server(database, process).listen(PORT, 'localhost', () => {
       console.log(`App has been started on port ${PORT}...`);

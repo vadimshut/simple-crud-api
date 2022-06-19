@@ -26,6 +26,7 @@ export const putRequest = async (req: IncomingMessage, res: ServerResponse, GLOB
 
       if (foundUser && updatedUser) {
         const user = await updateUser(foundUser, updatedUser, GLOBAL_DATA);
+        if (process?.send) process.send({ message: 'updatedStore', payload: GLOBAL_DATA });
         sendResponse(res, 200, user);
       }
     });

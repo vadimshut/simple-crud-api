@@ -5,7 +5,15 @@ import { router } from './router/router';
 import { sendResponse } from './utils/utils';
 
 export function server(db: IUser[], process?: NodeJS.Process) {
-  // if(process?.send) process.send({message: 'Hello from server node'})
+  if (process) {
+    process.on('message', (msg: { message: string; payload: string }) => {
+      const { message, payload } = msg;
+      if (message === 'data') {
+        db = JSON.parse(payload);
+      }
+    });
+  }
+
   return createServer(async (req, res) => {
     try {
       await router(req, res, db, process);
@@ -13,7 +21,4 @@ export function server(db: IUser[], process?: NodeJS.Process) {
       sendResponse(res, 500, null, SERVER_ERROR);
     }
   });
-  // .listen(port, 'localhost', () => {
-  //   console.log(`App has been started on port ${port}...`);
-  // });
 }
