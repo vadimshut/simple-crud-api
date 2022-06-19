@@ -5,7 +5,12 @@ import { createNewUser } from '../utils/user-operations';
 import { sendResponse } from '../utils/utils';
 import { validateBody } from '../utils/validate-body';
 
-export const postRequest = async (req: IncomingMessage, res: ServerResponse, GLOBAL_DATA: IUser[] | []) => {
+export const postRequest = async (
+  req: IncomingMessage,
+  res: ServerResponse,
+  GLOBAL_DATA: IUser[] | [],
+  process?: NodeJS.Process,
+) => {
   const { url } = req;
 
   if (url && GET_USERS_REGESP.test(url)) {
@@ -17,6 +22,7 @@ export const postRequest = async (req: IncomingMessage, res: ServerResponse, GLO
       if (!verdict) await sendResponse(res, 404, null, BAD_REQUEST);
       if (user) {
         const newUser = await createNewUser(user, GLOBAL_DATA);
+        if (process?.send) process.send({ message: 'updatedStore', payload: GLOBAL_DATA });
         sendResponse(res, 200, newUser);
       }
     });

@@ -5,7 +5,12 @@ import { getRequest } from './get';
 import { postRequest } from './post';
 import { putRequest } from './put';
 
-export const router = async (req: IncomingMessage, res: ServerResponse, GLOBAL_DATA: IUser[] | []) => {
+export const router = async (
+  req: IncomingMessage,
+  res: ServerResponse,
+  GLOBAL_DATA: IUser[] | [],
+  process?: NodeJS.Process,
+) => {
   const { method } = req;
 
   switch (method) {
@@ -13,7 +18,7 @@ export const router = async (req: IncomingMessage, res: ServerResponse, GLOBAL_D
       getRequest(req, res, GLOBAL_DATA);
       break;
     case 'POST':
-      postRequest(req, res, GLOBAL_DATA);
+      postRequest(req, res, GLOBAL_DATA, process);
       break;
     case 'PUT':
       putRequest(req, res, GLOBAL_DATA);
