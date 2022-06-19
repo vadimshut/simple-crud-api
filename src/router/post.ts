@@ -23,7 +23,7 @@ export const postRequest = async (
       if (user) {
         const newUser = await createNewUser(user, GLOBAL_DATA);
         if (process?.send) process.send({ message: 'updatedStore', payload: GLOBAL_DATA });
-        sendResponse(res, 200, newUser);
+        sendResponse(res, 201, newUser);
       }
     });
   } else {
