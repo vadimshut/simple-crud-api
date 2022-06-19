@@ -7,6 +7,7 @@ export const sendResponse = async (
   data?: IUser | IUser[] | [] | null,
   message?: string | null,
 ) => {
+  res.setHeader('Process-Id', process.pid);
   res.writeHead(statusCode, { 'Content-Type': 'application/json' });
   if (message) {
     const errorMessage = JSON.stringify({ message });
