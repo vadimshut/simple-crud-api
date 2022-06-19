@@ -19,7 +19,7 @@ export const postRequest = async (
 
     req.on('end', async () => {
       const { verdict, user } = await validateBody(body);
-      if (!verdict) await sendResponse(res, 404, null, BAD_REQUEST);
+      if (!verdict) await sendResponse(res, 400, null, BAD_REQUEST);
       if (user) {
         const newUser = await createNewUser(user, GLOBAL_DATA);
         if (process?.send) process.send({ message: 'updatedStore', payload: GLOBAL_DATA });
