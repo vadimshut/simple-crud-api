@@ -37,6 +37,6 @@
     "sourceMap": true
   },
 
-  "include": ["./src", "./jest.config.ts"],
+  "include": ["./src"],
   "exclude": ["node_modules/"]
 }

@@ -24,15 +24,14 @@
     "typescript": "^4.7.3"
   },
   "scripts": {
-    "start:prod": "npm run clean:dist && tsc && node ./build/index.js",
+    "start:prod": "tsc && node ./build/index.js",
     "start:dev": "nodemon ts-node src/index.ts",
     "start:watch": "nodemon -x ts-node src/index.ts",
-    "start:multi": "ts-node src/cluster.ts",
+    "start:multi": "tsc && node ./build/index.js",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix",
     "prettier": "npx prettier --write .",
-    "test": "npx jest --detectOpenHandles",
-    "clean:dist": "rm -rf ./dist"
+    "test": "npx jest --detectOpenHandles"
   },
   "repository": {
     "type": "git",

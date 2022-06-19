@@ -29,6 +29,16 @@
 
    > npm run test
 
+   3.5 Run prettier
+
+   > npm run prettier
+
+   3.6 Run ESLint
+
+   > npm run lint
+
+   > npm run lint:fix
+
 ### Usage guid
 
 **Database is empty from start. You should create user for first.**
