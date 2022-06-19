@@ -12,8 +12,6 @@ export const getRequest = async (req: IncomingMessage, res: ServerResponse, GLOB
     await sendResponse(res, 200, GLOBAL_DATA);
   } else if (url && GET_USER_REGESP.test(url)) {
     const userId = await getNameFromPath(url);
-    console.log(userId);
-
     const { statusCode, message, payload } = await findUser(GLOBAL_DATA, userId);
     if (statusCode <= 300) {
       await sendResponse(res, statusCode, payload);
