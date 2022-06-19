@@ -54,6 +54,3 @@
 - **username** — user's name (**type:** string);
 - **age** — user's age (**type:** number);
 - **hobbies** — user's hobbies (**type:** array of strings / empty array).
-
-**Note**
-If application port already in use, you can change it in **.env** file.

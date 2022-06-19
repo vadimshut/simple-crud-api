@@ -27,7 +27,7 @@
     "start:prod": "tsc && node ./build/index.js",
     "start:dev": "nodemon ts-node src/index.ts",
     "start:watch": "nodemon -x ts-node src/index.ts",
-    "start:multi": "tsc && node ./build/index.js",
+    "start:multi": "ts-node ./src/cluster.ts",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix",
     "prettier": "npx prettier --write .",
